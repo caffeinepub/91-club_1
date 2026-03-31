@@ -12,6 +12,7 @@ import { deriveIdentity, useAuth } from "../hooks/useAuth";
 export default function LoginPage() {
   const { login, logout } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
+  const [activeTab, setActiveTab] = useState<"login" | "register">("login");
 
   // Login form
   const [loginUsername, setLoginUsername] = useState("");
@@ -73,14 +74,18 @@ export default function LoginPage() {
     }
     setIsLoading(true);
     try {
-      // Derive identity WITHOUT committing the session yet
+      // Derive identity WITHOUT committing the session
       const identity = await deriveIdentity(trimmed, regPassword);
       const actor = await createActorWithConfig({ agentOptions: { identity } });
-      // Register on backend FIRST — only commit session after success
+      // Register on backend — username + password (as derived principal) saved
       await actor.register(trimmed);
-      // Registration succeeded — now store the session
-      await login(trimmed, regPassword);
-      toast.success("Welcome to 91 Club! 🎉");
+      // Registration succeeded — clear fields and redirect to login
+      toast.success("Account created! Please log in to continue.");
+      setRegUsername("");
+      setRegPassword("");
+      setRegConfirm("");
+      setActiveTab("login");
+      setLoginUsername(trimmed);
     } catch (e) {
       toast.error(e instanceof Error ? e.message : "Registration failed");
     } finally {
@@ -134,7 +139,11 @@ export default function LoginPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.5 }}
         >
-          <Tabs defaultValue="login" className="w-full">
+          <Tabs
+            value={activeTab}
+            onValueChange={(v) => setActiveTab(v as "login" | "register")}
+            className="w-full"
+          >
             <TabsList
               className="w-full h-12 rounded-xl mb-5"
               style={{ background: "oklch(0.16 0.022 268)" }}
@@ -368,7 +377,7 @@ export default function LoginPage() {
                       Creating account...
                     </span>
                   ) : (
-                    "Start Playing"
+                    "Create Account"
                   )}
                 </Button>
               </div>
