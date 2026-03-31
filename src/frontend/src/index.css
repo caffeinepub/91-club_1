@@ -1,0 +1,237 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "BricolageGrotesque";
+  src: url("/assets/fonts/BricolageGrotesque.woff2") format("woff2");
+  font-display: swap;
+  font-weight: 200 800;
+}
+
+@font-face {
+  font-family: "PlusJakartaSans";
+  src: url("/assets/fonts/PlusJakartaSans.woff2") format("woff2");
+  font-display: swap;
+  font-weight: 300 700;
+}
+
+@layer base {
+  :root {
+    --radius: 0.875rem;
+
+    /* Always-dark game theme */
+    --background: 0.11 0.018 265;
+    --foreground: 1 0 0;
+    --card: 0.18 0.025 260;
+    --card-foreground: 1 0 0;
+    --popover: 0.18 0.025 260;
+    --popover-foreground: 1 0 0;
+    --primary: 0.44 0.24 292;
+    --primary-foreground: 1 0 0;
+    --secondary: 0.21 0.027 260;
+    --secondary-foreground: 0.73 0.014 255;
+    --muted: 0.25 0.022 260;
+    --muted-foreground: 0.72 0.013 255;
+    --accent: 0.83 0.14 207;
+    --accent-foreground: 0.11 0.018 265;
+    --destructive: 0.64 0.22 25;
+    --destructive-foreground: 1 0 0;
+    --border: 0.27 0.022 260;
+    --input: 0.27 0.022 260;
+    --ring: 0.83 0.14 207;
+    --chart-1: 0.73 0.17 143;
+    --chart-2: 0.64 0.22 25;
+    --chart-3: 0.65 0.22 295;
+    --chart-4: 0.83 0.14 207;
+    --chart-5: 0.44 0.24 292;
+    --sidebar: 0.18 0.025 260;
+    --sidebar-foreground: 1 0 0;
+    --sidebar-primary: 0.44 0.24 292;
+    --sidebar-primary-foreground: 1 0 0;
+    --sidebar-accent: 0.25 0.022 260;
+    --sidebar-accent-foreground: 1 0 0;
+    --sidebar-border: 0.27 0.022 260;
+    --sidebar-ring: 0.83 0.14 207;
+
+    /* Game-specific custom tokens */
+    --game-purple: 0.44 0.24 292;
+    --game-purple-light: 0.65 0.22 295;
+    --game-blue: 0.62 0.17 252;
+    --game-cyan: 0.83 0.14 207;
+    --game-violet: 0.65 0.22 295;
+    --game-green: 0.73 0.17 143;
+    --game-red: 0.64 0.22 25;
+    --game-surface: 0.18 0.025 260;
+    --game-surface-2: 0.21 0.027 260;
+    --game-divider: 0.27 0.022 260;
+  }
+
+  .dark {
+    --background: 0.11 0.018 265;
+    --foreground: 1 0 0;
+    --card: 0.18 0.025 260;
+    --card-foreground: 1 0 0;
+    --popover: 0.18 0.025 260;
+    --popover-foreground: 1 0 0;
+    --primary: 0.44 0.24 292;
+    --primary-foreground: 1 0 0;
+    --secondary: 0.21 0.027 260;
+    --secondary-foreground: 0.73 0.014 255;
+    --muted: 0.25 0.022 260;
+    --muted-foreground: 0.72 0.013 255;
+    --accent: 0.83 0.14 207;
+    --accent-foreground: 0.11 0.018 265;
+    --destructive: 0.64 0.22 25;
+    --destructive-foreground: 1 0 0;
+    --border: 0.27 0.022 260;
+    --input: 0.27 0.022 260;
+    --ring: 0.83 0.14 207;
+    --chart-1: 0.73 0.17 143;
+    --chart-2: 0.64 0.22 25;
+    --chart-3: 0.65 0.22 295;
+    --chart-4: 0.83 0.14 207;
+    --chart-5: 0.44 0.24 292;
+    --sidebar: 0.18 0.025 260;
+    --sidebar-foreground: 1 0 0;
+    --sidebar-primary: 0.44 0.24 292;
+    --sidebar-primary-foreground: 1 0 0;
+    --sidebar-accent: 0.25 0.022 260;
+    --sidebar-accent-foreground: 1 0 0;
+    --sidebar-border: 0.27 0.022 260;
+    --sidebar-ring: 0.83 0.14 207;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: "PlusJakartaSans", sans-serif;
+    overflow: hidden;
+    height: 100dvh;
+  }
+
+  #root {
+    height: 100dvh;
+    overflow: hidden;
+  }
+}
+
+@layer components {
+  .gradient-header {
+    background: linear-gradient(
+      135deg,
+      oklch(var(--game-purple)) 0%,
+      oklch(var(--game-blue)) 100%
+    );
+  }
+
+  .gradient-cta {
+    background: linear-gradient(
+      135deg,
+      oklch(var(--game-blue)) 0%,
+      oklch(var(--game-purple)) 100%
+    );
+  }
+
+  .card-neon {
+    background: oklch(var(--game-surface));
+    border: 1px solid oklch(var(--game-cyan) / 0.35);
+    box-shadow: 0 0 0 1px oklch(var(--game-purple-light) / 0.15), 0 0 24px
+      oklch(var(--game-cyan) / 0.08), inset 0 0 32px oklch(0.11 0.018 265 / 0.5);
+  }
+
+  .card-game {
+    background: oklch(var(--game-surface));
+    border: 1px solid oklch(var(--game-divider));
+    box-shadow: 0 4px 24px oklch(0.06 0.01 265 / 0.5);
+  }
+
+  .chip-number-violet {
+    background: oklch(var(--game-violet));
+    color: white;
+  }
+
+  .chip-number-green {
+    background: oklch(var(--game-green));
+    color: white;
+  }
+
+  .chip-number-red {
+    background: oklch(var(--game-red));
+    color: white;
+  }
+
+  .pill-green {
+    border: 1.5px solid oklch(var(--game-green));
+    color: oklch(var(--game-green));
+  }
+
+  .pill-violet {
+    border: 1.5px solid oklch(var(--game-violet));
+    color: oklch(var(--game-violet));
+  }
+
+  .pill-red {
+    border: 1.5px solid oklch(var(--game-red));
+    color: oklch(var(--game-red));
+  }
+
+  .pill-active-green {
+    background: oklch(var(--game-green));
+    color: white;
+  }
+
+  .pill-active-violet {
+    background: oklch(var(--game-violet));
+    color: white;
+  }
+
+  .pill-active-red {
+    background: oklch(var(--game-red));
+    color: white;
+  }
+
+  .stake-chip {
+    background: oklch(var(--game-surface-2));
+    border: 1.5px solid oklch(var(--game-divider));
+    color: oklch(var(--foreground));
+  }
+
+  .stake-chip-active {
+    background: oklch(var(--game-surface-2));
+    border: 1.5px solid oklch(var(--game-cyan));
+    color: oklch(var(--game-cyan));
+    box-shadow: 0 0 8px oklch(var(--game-cyan) / 0.3);
+  }
+
+  .scrollbar-hidden {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .scrollbar-hidden::-webkit-scrollbar {
+    display: none;
+  }
+
+  .badge-green {
+    background: oklch(var(--game-green));
+    color: white;
+  }
+
+  .badge-red {
+    background: oklch(var(--game-red));
+    color: white;
+  }
+
+  .badge-violet {
+    background: oklch(var(--game-violet));
+    color: white;
+  }
+}
